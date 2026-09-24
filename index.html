@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vitor Client – Base Finding Cheat</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #9b59f0;
+            --primary-dark: #7b2fd6;
+            --primary-light: #c084fc;
+            --accent: #d946ef;
+            --discord: #5865F2;
+            --discord-hover: #4752c4;
+            --bg-dark: #0a0a12;
+            --bg-card: #13132a;
+            --bg-card-hover: #1a1a3e;
+            --text: #e8e0f5;
+            --text-muted: #9a8fb5;
+            --glow: rgba(155, 89, 240, 0.4);
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Animated Background */
+        .bg-effects {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .bg-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .bg-orb:nth-child(1) {
+            width: 400px;
+            height: 400px;
+            background: var(--primary);
+            top: -100px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+
+        .bg-orb:nth-child(2) {
+            width: 350px;
+            height: 350px;
+            background: var(--accent);
+            bottom: -100px;
+            right: -100px;
+            animation-delay: -3s;
+        }
+
+        .bg-orb:nth-child(3) {
+            width: 250px;
+            height: 250px;
+            background: #6366f1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: -5s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(30px, -40px) scale(1.1); }
+            50% { transform: translate(-20px, 20px) scale(0.95); }
+            75% { transform: translate(40px, 30px) scale(1.05); }
+        }
+
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(155, 89, 240, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(155, 89, 240, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--primary-light);
+            border-radius: 50%;
+            animation: particleFloat linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes particleFloat {
+            0% { opacity: 0; transform: translateY(100vh) scale(0); }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.3; }
+            100% { opacity: 0; transform: translateY(-10vh) scale(1); }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            backdrop-filter: blur(20px);
+            background: rgba(10, 10, 18, 0.75);
+            border-bottom: 1px solid rgba(155, 89, 240, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 12px 50px;
+            background: rgba(10, 10, 18, 0.95);
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary-light), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+            letter-spacing: 3px;
+        }
+
+        .logo::after {
+            content: 'CLIENT';
+            display: block;
+            font-size: 0.55rem;
+            letter-spacing: 8px;
+            -webkit-text-fill-color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-light);
+        }
+
+        .nav-discord-btn {
+            background: rgba(88, 101, 242, 0.15) !important;
+            border: 1px solid rgba(88, 101, 242, 0.4);
+            color: #8ea1ff !important;
+            padding: 8px 18px;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-discord-btn:hover {
+            background: var(--discord) !important;
+            color: white !important;
+            box-shadow: 0 0 20px rgba(88, 101, 242, 0.4);
+        }
+
+        .nav-buy-btn {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white !important;
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-weight: 700;
+            box-shadow: 0 0 20px rgba(155, 89, 240, 0.3);
+        }
+
+        .nav-buy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 35px rgba(155, 89, 240, 0.5);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 2px;
+            background: var(--primary-light);
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 140px 20px 80px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(155, 89, 240, 0.1);
+            border: 1px solid rgba(155, 89, 240, 0.25);
+            padding: 8px 22px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--primary-light);
+            margin-bottom: 25px;
+        }
+
+        .hero-badge .dot {
+            width: 8px;
+            height: 8px;
+            background: #4ade80;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 10px;
+        }
+
+        .hero h1 .gradient-text {
+            background: linear-gradient(135deg, var(--primary-light), var(--accent), #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .hero-smp-tag {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.95rem;
+            color: var(--accent);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 35px;
+        }
+
+        .hero-description {
+            max-width: 620px;
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 40px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn-primary, .btn-secondary, .btn-discord, .btn-showcase {
+            padding: 16px 36px;
+            border-radius: 60px;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            box-shadow: 0 0 30px rgba(155, 89, 240, 0.35);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 40px rgba(155, 89, 240, 0.55);
+        }
+
+        .btn-discord {
+            background: var(--discord);
+            color: white;
+            box-shadow: 0 0 25px rgba(88, 101, 242, 0.3);
+        }
+
+        .btn-discord:hover {
+            background: var(--discord-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 35px rgba(88, 101, 242, 0.5);
+        }
+
+        .btn-showcase {
+            background: transparent;
+            color: var(--primary-light);
+            border: 2px solid rgba(155, 89, 240, 0.4);
+        }
+
+        .btn-showcase:hover {
+            background: rgba(155, 89, 240, 0.1);
+            border-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* Showcases Section */
+        .showcases-section {
+            padding: 90px 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .showcase-card {
+            background: rgba(19, 19, 42, 0.6);
+            border: 1px solid rgba(155, 89, 240, 0.15);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .showcase-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(155, 89, 240, 0.4);
+            box-shadow: 0 20px 50px rgba(155, 89, 240, 0.2);
+        }
+
+        .showcase-preview {
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(135deg, #181336, #2d184d);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .showcase-play-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(155, 89, 240, 0.85);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 30px rgba(155, 89, 240, 0.6);
+        }
+
+        .showcase-card:hover .showcase-play-icon {
+            transform: scale(1.15);
+            background: var(--accent);
+        }
+
+        .showcase-body {
+            padding: 25px;
+        }
+
+        .showcase-body h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.15rem;
+            margin-bottom: 10px;
+        }
+
+        .showcase-body p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .showcase-link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary-light);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        .showcase-link-btn:hover {
+            color: var(--accent);
+        }
+
+        /* Discord Promo Box */
+        .discord-section {
+            padding: 60px 50px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .discord-card {
+            background: linear-gradient(135deg, rgba(88, 101, 242, 0.15), rgba(155, 89, 240, 0.12));
+            border: 1px solid rgba(88, 101, 242, 0.3);
+            border-radius: 28px;
+            padding: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+            backdrop-filter: blur(15px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .discord-info h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.2rem;
+            margin-bottom: 12px;
+        }
+
+        .discord-info p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 500px;
+            line-height: 1.6;
+        }
+
+        /* Buy Section */
+        .buy-section {
+            padding: 100px 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-label {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .section-subtitle {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            max-width: 550px;
+            margin: 0 auto;
+        }
+
+        .buy-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 35px;
+            max-width: 950px;
+            margin: 0 auto;
+        }
+
+        .buy-card {
+            background: rgba(19, 19, 42, 0.7);
+            border: 1px solid rgba(155, 89, 240, 0.15);
+            border-radius: 24px;
+            padding: 45px 35px;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        .buy-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(155, 89, 240, 0.4);
+            box-shadow: 0 25px 70px rgba(155, 89, 240, 0.2);
+        }
+
+        .buy-card.featured {
+            border-color: rgba(155, 89, 240, 0.35);
+            background: rgba(25, 25, 55, 0.85);
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .buy-icon {
+            width: 75px;
+            height: 75px;
+            margin: 0 auto 22px;
+            background: linear-gradient(135deg, rgba(155, 89, 240, 0.15), rgba(217, 70, 239, 0.1));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            border: 2px solid rgba(155, 89, 240, 0.15);
+        }
+
+        .buy-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.25rem;
+            margin-bottom: 12px;
+        }
+
+        .buy-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .btn-buy {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 14px 38px;
+            border: none;
+            border-radius: 50px;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-buy:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(155, 89, 240, 0.4);
+        }
+
+        .buy-card.featured .btn-buy {
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            box-shadow: 0 0 25px rgba(217, 70, 239, 0.35);
+        }
+
+        .payment-methods {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .payment-tag {
+            background: rgba(155, 89, 240, 0.08);
+            border: 1px solid rgba(155, 89, 240, 0.15);
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 50px;
+            text-align: center;
+            border-top: 1px solid rgba(155, 89, 240, 0.1);
+            margin-top: 50px;
+        }
+
+        .footer-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-light), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+        }
+
+        footer p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-light);
+        }
+
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero h1 { font-size: 3.5rem; }
+            .buy-cards, .showcase-grid { grid-template-columns: 1fr; max-width: 500px; }
+            .discord-card { flex-direction: column; text-align: center; }
+            nav { padding: 15px 25px; }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger { display: flex; }
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                flex-direction: column;
+                background: rgba(10, 10, 18, 0.97);
+                padding: 100px 40px;
+                transition: right 0.4s ease;
+                border-left: 1px solid rgba(155, 89, 240, 0.15);
+                gap: 20px;
+            }
+            .nav-links.active { right: 0; }
+            .hero h1 { font-size: 2.5rem; }
+            .hero-buttons { flex-direction: column; width: 100%; max-width: 320px; }
+            .btn-primary, .btn-secondary, .btn-discord, .btn-showcase { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Effects -->
+    <div class="bg-effects">
+        <div class="bg-orb"></div>
+        <div class="bg-orb"></div>
+        <div class="bg-orb"></div>
+    </div>
+    <div class="grid-bg"></div>
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <a href="#home" class="logo">VITOR</a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#showcases">Showcases</a></li>
+            <li><a href="#buy">Buy</a></li>
+            
+            <!-- ========================================== -->
+            <!-- ✏️ EDIT YOUR DISCORD LINK IN THE HREF BELOW -->
+            <!-- ========================================== -->
+            <li>
+                <a href="https://discord.gg/YOUR_INVITE_HERE" target="_blank" class="nav-discord-btn">
+                    💬 Discord
+                </a>
+            </li>
+            
+            <li><a href="#buy" class="nav-buy-btn">Buy Now</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="content">
+
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="hero-badge">
+                <span class="dot"></span>
+                Donut SMP Exclusive
+            </div>
+            <h1>
+                <span class="gradient-text">VITOR</span>
+            </h1>
+            <p class="hero-subtitle">The Ultimate Base Finding Cheat</p>
+            <p class="hero-smp-tag">★ Built for Donut SMP ★</p>
+            <p class="hero-description">
+                Dominate Donut SMP with precision base finding technology. Locate undetected underground bunkers, stash vaults, and hidden mega bases effortlessly.
+            </p>
+            <div class="hero-buttons">
+                <!-- Buy Button -->
+                <a href="#buy" class="btn-primary">
+                    🛒 Buy Now
+                </a>
+
+                <!-- ========================================== -->
+                <!-- ✏️ EDIT YOUR DISCORD LINK IN THE HREF BELOW -->
+                <!-- ========================================== -->
+                <a href="https://discord.gg/YOUR_INVITE_HERE" target="_blank" class="btn-discord">
+                    <svg width="20" height="16" viewBox="0 0 24 18" fill="currentColor">
+                        <path d="M20.317 1.492a19.742 19.742 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 1.492.07.07 0 0 0 3.645 1.52C.533 6.166-.319 10.697.099 15.176a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.893.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 12.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                    </svg>
+                    Join Discord
+                </a>
+
+                <!-- Showcases Button -->
+                <a href="#showcases" class="btn-showcase">
+                    ▶ Showcases
+                </a>
+            </div>
+        </section>
+
+        <!-- Showcases Section -->
+        <section class="showcases-section" id="showcases">
+            <div class="section-header reveal">
+                <p class="section-label">Proof & Gameplay</p>
+                <h2 class="section-title">Showcases</h2>
+                <p class="section-subtitle">Watch Vitor Client in action finding hidden vaults and bases on Donut SMP</p>
+            </div>
+            <div class="showcase-grid">
+                
+                <!-- Showcase Card 1 -->
+                <div class="showcase-card reveal">
+                    <!-- ============================================================== -->
+                    <!-- ✏️ EDIT DESTINATION: REPLACE '#' WITH YOUR VIDEO/YOUTUBE LINK -->
+                    <!-- ============================================================== -->
+                    <a href="#" target="_blank" style="text-decoration: none;">
+                        <div class="showcase-preview">
+                            <div class="showcase-play-icon">▶</div>
+                        </div>
+                    </a>
+                    <div class="showcase-body">
+                        <h3>Donut SMP Base Hunt Showcase #1</h3>
+                        <p>Finding a massive multi-million dollar underground stash base within minutes using Vitor Client.</p>
+                        <!-- ✏️ EDIT LINK HERE AS WELL -->
+                        <a href="#" target="_blank" class="showcase-link-btn">Watch Video →</a>
+                    </div>
+                </div>
+
+                <!-- Showcase Card 2 -->
+                <div class="showcase-card reveal">
+                    <!-- ============================================================== -->
+                    <!-- ✏️ EDIT DESTINATION: REPLACE '#' WITH YOUR VIDEO/YOUTUBE LINK -->
+                    <!-- ============================================================== -->
+                    <a href="#" target="_blank" style="text-decoration: none;">
+                        <div class="showcase-preview">
+                            <div class="showcase-play-icon">▶</div>
+                        </div>
+                    </a>
+                    <div class="showcase-body">
+                        <h3>Full Base Finding Demonstration</h3>
+                        <p>Live scan demonstration showing how quickly undetected bases and chunk borders are located.</p>
+                        <!-- ✏️ EDIT LINK HERE AS WELL -->
+                        <a href="#" target="_blank" class="showcase-link-btn">Watch Video →</a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Discord Banner Card -->
+        <section class="discord-section reveal">
+            <div class="discord-card">
+                <div class="discord-info">
+                    <h2>Join the Community</h2>
+                    <p>Get instant updates, customer support, vouchers, trade deals, and announcements directly on our official Discord.</p>
+                </div>
+                <div>
+                    <!-- ========================================== -->
+                    <!-- ✏️ EDIT YOUR DISCORD LINK IN THE HREF BELOW -->
+                    <!-- ========================================== -->
+                    <a href="https://discord.gg/YOUR_INVITE_HERE" target="_blank" class="btn-discord">
+                        Join Discord Server
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Buy Section -->
+        <section class="buy-section" id="buy">
+            <div class="section-header reveal">
+                <p class="section-label">Get Vitor Client</p>
+                <h2 class="section-title">Buy</h2>
+                <p class="section-subtitle">We accept Donut SMP in-game money, items, and Cash App</p>
+            </div>
+            <div class="buy-cards">
+                
+                <!-- Option 1: Donut SMP $$$ -->
+                <div class="buy-card reveal">
+                    <div class="buy-icon">🍩</div>
+                    <h3>Donut SMP $$$</h3>
+                    <p>Pay with in-game currency on Donut SMP. No real money required — fast & seamless trade transfer.</p>
+                    
+                    <!-- ============================================================= -->
+                    <!-- ✏️ EDIT LINK BELOW (e.g. your Discord ticket link or checkout) -->
+                    <!-- ============================================================= -->
+                    <a href="https://discord.gg/YOUR_INVITE_HERE" target="_blank" class="btn-buy">Buy with $$$</a>
+                    
+                    <div class="payment-methods">
+                        <span class="payment-tag">In-Game Money</span>
+                        <span class="payment-tag">Fast Delivery</span>
+                    </div>
+                </div>
+
+                <!-- Option 2: Donut SMP Items -->
+                <div class="buy-card reveal">
+                    <div class="buy-icon">📦</div>
+                    <h3>Donut SMP Items</h3>
+                    <p>Trade your rare spawners, God sets, keys, or valuable items on Donut SMP to get Vitor Client access.</p>
+                    
+                    <!-- ============================================================= -->
+                    <!-- ✏️ EDIT LINK BELOW (e.g. your Discord ticket link or checkout) -->
+                    <!-- ============================================================= -->
+                    <a href="https://discord.gg/YOUR_INVITE_HERE" target="_blank" class="btn-buy">Trade Items</a>
+                    
+                    <div class="payment-methods">
+                        <span class="payment-tag">Item Trading</span>
+                        <span class="payment-tag">Fair Valuations</span>
+                    </div>
+                </div>
+
+                <!-- Option 3: Cash App -->
+                <div class="buy-card featured reveal">
+                    <span class="featured-badge">⭐ Recommended</span>
+                    <div class="buy-icon">💸</div>
+                    <h3>Cash App</h3>
+                    <p>Pay with Cash App for instant access and the fastest setup assistance from our team.</p>
+                    
+                    <!-- ============================================================= -->
+                    <!-- ✏️ EDIT LINK BELOW (e.g. your Discord ticket link or checkout) -->
+                    <!-- ============================================================= -->
+                    <a href="https://discord.gg/YOUR_INVITE_HERE" target="_blank" class="btn-buy">Pay via Cash App</a>
+                    
+                    <div class="payment-methods">
+                        <span class="payment-tag">Cash App</span>
+                        <span class="payment-tag">Instant Access</span>
+                    </div>
+                </div>
+
+                <!-- Option 4: Custom / Mixed -->
+                <div class="buy-card reveal">
+                    <div class="buy-icon">🎁</div>
+                    <h3>Mixed / Deals</h3>
+                    <p>Mix and match! Pay partially in Donut SMP $$$ + Items + Cash App for a custom deal tailored to you.</p>
+                    
+                    <!-- ============================================================= -->
+                    <!-- ✏️ EDIT LINK BELOW (e.g. your Discord ticket link or checkout) -->
+                    <!-- ============================================================= -->
+                    <a href="https://discord.gg/YOUR_INVITE_HERE" target="_blank" class="btn-buy">Open Ticket</a>
+                    
+                    <div class="payment-methods">
+                        <span class="payment-tag">Custom Deals</span>
+                        <span class="payment-tag">24/7 Support</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-logo">VITOR CLIENT</div>
+            <p>The #1 Base Finding Client for Donut SMP</p>
+            <div class="footer-links">
+                <a href="#home">Home</a>
+                <a href="#showcases">Showcases</a>
+                <a href="#buy">Buy</a>
+                <!-- ✏️ EDIT DISCORD LINK HERE -->
+                <a href="https://discord.gg/YOUR_INVITE_HERE" target="_blank">Discord</a>
+            </div>
+            <p style="margin-top: 25px; font-size: 0.75rem; color: rgba(154, 143, 181, 0.4);">
+                © 2024 Vitor Client. Built exclusively for Donut SMP.
+            </p>
+        </footer>
+
+    </div>
+
+    <script>
+        // Particles background
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 28; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 8 + 6) + 's';
+                particle.style.animationDelay = (Math.random() * 8) + 's';
+                particle.style.width = (Math.random() * 3 + 1) + 'px';
+                particle.style.height = particle.style.width;
+                container.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        // Navbar Scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 40) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Menu
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+            document.getElementById('hamburger').classList.toggle('active');
+        }
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('active');
+                document.getElementById('hamburger').classList.remove('active');
+            });
+        });
+
+        // Scroll Reveal Animations
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            revealElements.forEach(el => {
+                const top = el.getBoundingClientRect().top;
+                if (top < window.innerHeight - 70) {
+                    el.classList.add('active');
+                }
+            });
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
+
+        // Smooth Scroll for local anchors only
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
